@@ -92,12 +92,11 @@ class LoginController extends Controller
     //个人中心
     public function myself(){
 
-        $data = file_get_contents("php://input");
-//        $where = [
-//            'user_id'=>$user_id
-//        ];
-//        $obj = DB::table('user')->where($where)->first();
-        var_dump($data);die;
+        $user_id = file_get_contents("php://input");
+        $where = [
+            'user_id'=>$user_id
+        ];
+        $obj = DB::table('user')->where($where)->first();
         if($obj){
             $response = [
                 'errno'=>'0',

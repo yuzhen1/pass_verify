@@ -18,3 +18,4 @@ Route::get('/', function () {
 $router->post('/login/register', 'LoginController@register');
 //登录
 $router->post('/login/login', 'LoginController@login');
+$router->post('/login/myself', 'LoginController@myself');
