@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\UserModel;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
@@ -31,7 +30,7 @@ class LoginController extends Controller
             'add_time'=>time(),
         ];
         //入库
-        $res = UserModel::insertGetId($data);
+        $res = DB::table('user')->insertGetId($data);
         if($res){
             $response=[
                 'errno'=>'0',
@@ -91,8 +90,14 @@ class LoginController extends Controller
 
     //个人中心
     public function myself(){
-
         $user_id = file_get_contents("php://input");
+        if(empty($user_id)){
+            $response = [
+                'errno'=>'50001',
+                'msg'=>'请登陆'
+            ];
+            return $response;
+        }
         $where = [
             'user_id'=>$user_id
         ];
@@ -103,12 +108,6 @@ class LoginController extends Controller
                 'msg'=>"success",
                 'user_name'=>$obj->user_name,
                 'user_email'=>$obj->user_email
-            ];
-            return $response;
-        }else{
-            $response = [
-                'errno'=>'50001',
-                'msg'=>'请登陆'
             ];
             return $response;
         }
