@@ -19,3 +19,7 @@ $router->post('/login/register', 'LoginController@register');
 //登录
 $router->post('/login/login', 'LoginController@login');
 $router->post('/login/myself', 'LoginController@myself');//个人中心
+//购物车
+$router->post('/car/car_add', 'Car\CarController@car_add');
+//订单
+$router->post('/order/order_add', 'Order\OrderController@order_add');
